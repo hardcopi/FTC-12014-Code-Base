@@ -60,13 +60,6 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         say("Right: " + right);
         say("Left: " + left);
 
-        if (gamepad1.right_bumper) {
-            telemetry.addData("Say", "Joystick Unconditioned...");
-        } else {
-            telemetry.addData("Say", "Joystick Conditioned...");
-            left = JoystickConditioning(left, .2f, .2f, .2f);
-            right = JoystickConditioning(right, .2f, .2f, .2f);
-        }
         if(gamepad1.dpad_up) {
             robot.Drive(1);
             say("All Forward");
@@ -84,9 +77,18 @@ public class PushbotTeleopTank_Iterative extends OpMode{
 
             right = 1;
         }
-        /**
 
+        /**
+         * TUrn on and off joystick conditioning
          */
+        if (gamepad1.right_bumper) {
+            telemetry.addData("Say", "Joystick Unconditioned...");
+        } else {
+            telemetry.addData("Say", "Joystick Conditioned...");
+            left = JoystickConditioning(left, .2f, .2f, .2f);
+            right = JoystickConditioning(right, .2f, .2f, .2f);
+        }
+
         /**
          * Turn intake on at 100% to fix stuck balls
          */
@@ -104,7 +106,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         /**
          * Turn intake off if bumpers not pressed
          */
-        if (!gamepad1.left_bumper && !gamepad1.right_bumper) {
+        if (gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0) {
             robot.intakeMotor.setPower(0);
         }
 
