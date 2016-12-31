@@ -53,10 +53,6 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         float left;
         float right;
         float x;
-        DcMotor intake1 = robot.leftIntake;
-        DcMotor intake2 = robot.rightIntake;
-
-
 
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
         left = -gamepad1.left_stick_y;
@@ -64,7 +60,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         say("Right: " + right);
         say("Left: " + left);
 
-        if (gamepad1.right_trigger == 0) {
+        if (gamepad1.right_bumper) {
             telemetry.addData("Say", "Joystick Unconditioned...");
         } else {
             telemetry.addData("Say", "Joystick Conditioned...");
@@ -92,26 +88,40 @@ public class PushbotTeleopTank_Iterative extends OpMode{
 
          */
         /**
-         * Turning on intake using right bumper
+         * Turn intake on at 100% to fix stuck balls
          */
-        if(gamepad1.right_bumper ){
-            robot.leftIntake.setPower(1);
-            robot.rightIntake.setPower(1);
+        if (gamepad1.right_trigger == 1) {
+            robot.intakeMotor.setPower(1);
         }
 
         /**
-         * Turning on intake using left bumper
+         * Turn intake on at 45% for normal intake
          */
-        if(gamepad1.left_bumper){
-            robot.leftIntake.setPower(-1);
-            robot.rightIntake.setPower(-1);
+        if (gamepad1.left_trigger == 1) {
+            robot.intakeMotor.setPower(.45);
         }
+
         /**
          * Turn intake off if bumpers not pressed
          */
-        if(!gamepad1.left_bumper&&!gamepad1.right_bumper){
-            robot.leftIntake.setPower(0);
-            robot.rightIntake.setPower(0);
+        if (!gamepad1.left_bumper && !gamepad1.right_bumper) {
+            robot.intakeMotor.setPower(0);
+        }
+
+        /**
+         * Fire
+         */
+        if (gamepad1.a) {
+            robot.leftShooter.setPower(.25);
+            robot.rightShooter.setPower(-.25);
+        }
+
+        /**
+         * Turn off fire if the a button is not pressed
+         */
+        if (!gamepad1.a) {
+            robot.leftShooter.setPower(0);
+            robot.rightShooter.setPower(0);
         }
 
         robot.leftMotor.setPower(left);

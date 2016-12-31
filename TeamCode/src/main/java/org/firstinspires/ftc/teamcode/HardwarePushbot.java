@@ -28,8 +28,8 @@ public class HardwarePushbot
 //    public DcMotor  leftFrontMotor   = null;
 //    public DcMotor  rightFrontMotor  = null;
     public DcMotor r = null;
-    public DcMotor rightIntake, leftIntake, leftMotor, rightMotor = null;
-    public ArrayList<DcMotor> motorArray = new ArrayList<DcMotor>(Arrays.asList(leftMotor,rightMotor,leftIntake,rightIntake));
+    public DcMotor intakeMotor, leftShooter, rightShooter, leftMotor, rightMotor = null;
+    public ArrayList<DcMotor> motorArray = new ArrayList<DcMotor>(Arrays.asList(leftMotor, rightMotor, intakeMotor, leftShooter, rightShooter));
     public Map<DcMotor, String> m = new HashMap<DcMotor, String>();
     public long start_time;
     /* local OpMode members. */
@@ -60,14 +60,19 @@ public class HardwarePushbot
             rightMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
 
         }
-        if(hwMap.dcMotor.get("right_intake_drive")!=null){
-            rightIntake = hwMap.dcMotor.get("right_intake_drive");
-            rightIntake.setDirection(DcMotor.Direction.FORWARD);
+        if (hwMap.dcMotor.get("intake_motor") != null) {
+            intakeMotor = hwMap.dcMotor.get("right_intake_drive");
+            intakeMotor.setDirection(DcMotor.Direction.FORWARD);
 
         }
-        if(hwMap.dcMotor.get("left_intake_drive")!=null ){
-            leftIntake = hwMap.dcMotor.get("left_intake_drive");
-            leftIntake.setDirection(DcMotor.Direction.REVERSE);
+        if (hwMap.dcMotor.get("left_shooter_motor") != null) {
+            leftShooter = hwMap.dcMotor.get("left_shooter_motor");
+            leftShooter.setDirection(DcMotor.Direction.REVERSE);
+
+        }
+        if (hwMap.dcMotor.get("right_shooter_motor") != null) {
+            leftShooter = hwMap.dcMotor.get("right_shooter_motor");
+            leftShooter.setDirection(DcMotor.Direction.FORWARD);
 
         }
 
