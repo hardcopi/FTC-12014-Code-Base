@@ -99,9 +99,9 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         /**
          * Turn intake on at 45% for normal intake
          */
-//        if (gamepad1.left_trigger != 1) {
-//            robot.intakeMotor.setPower(.45);
-//        }
+        if (gamepad1.left_trigger != 1) {
+            robot.intakeMotor.setPower(.45);
+        }
 
         /**
          * Turn intake off if bumpers not pressed
@@ -115,7 +115,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
          */
         if (gamepad1.a) {
             robot.leftShooter.setPower(1);
-//            robot.rightShooter.setPower(-.25);
+            robot.rightShooter.setPower(-1);
         }
 
         /**
@@ -123,7 +123,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
          */
         if (!gamepad1.a) {
             robot.leftShooter.setPower(0);
-//            robot.rightShooter.setPower(0);
+            robot.rightShooter.setPower(0);
         }
 
         robot.leftMotor.setPower(left);

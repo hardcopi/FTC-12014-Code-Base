@@ -22,11 +22,6 @@ import java.util.Map;
  */
 public class HardwarePushbot
 {
-    /* Public OpMode members. */
-//    public DcMotor  leftMotor   = null;
-//    public DcMotor  rightMotor  = null;
-//    public DcMotor  leftFrontMotor   = null;
-//    public DcMotor  rightFrontMotor  = null;
     public DcMotor r = null;
     public DcMotor intakeMotor, leftShooter, rightShooter, leftMotor, rightMotor = null;
     public ArrayList<DcMotor> motorArray = new ArrayList<DcMotor>(Arrays.asList(leftMotor, rightMotor, intakeMotor, leftShooter, rightShooter));
@@ -70,10 +65,10 @@ public class HardwarePushbot
             leftShooter.setDirection(DcMotor.Direction.REVERSE);
 
         }
-//        if (hwMap.dcMotor.get("right_shooter_motor") != null) {
-//            rightShooter = hwMap.dcMotor.get("right_shooter_motor");
-//            rightShooter.setDirection(DcMotor.Direction.FORWARD);
-//        }
+        if (hwMap.dcMotor.get("right_shooter_motor") != null) {
+            rightShooter = hwMap.dcMotor.get("right_shooter_motor");
+            rightShooter.setDirection(DcMotor.Direction.FORWARD);
+        }
 
 
 
