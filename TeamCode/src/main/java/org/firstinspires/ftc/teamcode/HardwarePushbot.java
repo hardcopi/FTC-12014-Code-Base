@@ -61,7 +61,7 @@ public class HardwarePushbot
 
         }
         if (hwMap.dcMotor.get("intake_motor") != null) {
-            intakeMotor = hwMap.dcMotor.get("right_intake_drive");
+            intakeMotor = hwMap.dcMotor.get("intake_motor");
             intakeMotor.setDirection(DcMotor.Direction.FORWARD);
 
         }
@@ -70,11 +70,10 @@ public class HardwarePushbot
             leftShooter.setDirection(DcMotor.Direction.REVERSE);
 
         }
-        if (hwMap.dcMotor.get("right_shooter_motor") != null) {
-            leftShooter = hwMap.dcMotor.get("right_shooter_motor");
-            leftShooter.setDirection(DcMotor.Direction.FORWARD);
-
-        }
+//        if (hwMap.dcMotor.get("right_shooter_motor") != null) {
+//            rightShooter = hwMap.dcMotor.get("right_shooter_motor");
+//            rightShooter.setDirection(DcMotor.Direction.FORWARD);
+//        }
 
 
 

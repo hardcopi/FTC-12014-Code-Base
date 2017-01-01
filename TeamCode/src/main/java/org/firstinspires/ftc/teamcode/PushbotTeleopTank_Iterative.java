@@ -55,8 +55,8 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         float x;
 
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-        left = -gamepad1.left_stick_y;
-        right = -gamepad1.right_stick_y;
+        left = gamepad1.left_stick_y;
+        right = gamepad1.right_stick_y;
         say("Right: " + right);
         say("Left: " + left);
 
@@ -81,7 +81,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         /**
          * TUrn on and off joystick conditioning
          */
-        if (gamepad1.right_bumper) {
+        if (!gamepad1.right_bumper) {
             telemetry.addData("Say", "Joystick Unconditioned...");
         } else {
             telemetry.addData("Say", "Joystick Conditioned...");
@@ -93,15 +93,15 @@ public class PushbotTeleopTank_Iterative extends OpMode{
          * Turn intake on at 100% to fix stuck balls
          */
         if (gamepad1.right_trigger == 1) {
-            robot.intakeMotor.setPower(1);
+            robot.intakeMotor.setPower(-1);
         }
 
         /**
          * Turn intake on at 45% for normal intake
          */
-        if (gamepad1.left_trigger == 1) {
-            robot.intakeMotor.setPower(.45);
-        }
+//        if (gamepad1.left_trigger != 1) {
+//            robot.intakeMotor.setPower(.45);
+//        }
 
         /**
          * Turn intake off if bumpers not pressed
@@ -114,8 +114,8 @@ public class PushbotTeleopTank_Iterative extends OpMode{
          * Fire
          */
         if (gamepad1.a) {
-            robot.leftShooter.setPower(.25);
-            robot.rightShooter.setPower(-.25);
+            robot.leftShooter.setPower(1);
+//            robot.rightShooter.setPower(-.25);
         }
 
         /**
@@ -123,7 +123,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
          */
         if (!gamepad1.a) {
             robot.leftShooter.setPower(0);
-            robot.rightShooter.setPower(0);
+//            robot.rightShooter.setPower(0);
         }
 
         robot.leftMotor.setPower(left);
