@@ -1,4 +1,4 @@
-# 12014 Team Code
+# FTC Team 12014 "The Fire Wires" Team Code
 FTC Android Studio project to create FTC Robot Controller app.
 
 ## MISSION STATEMENT:
