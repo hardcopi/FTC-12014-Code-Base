@@ -83,11 +83,11 @@ public class PushbotTeleopTank_Iterative extends OpMode{
          * Turn on and off joystick conditioning
          */
         if (!gamepad1.right_bumper) {
-            telemetry.addData("Say", "Joystick Unconditioned...");
+            say("Joystick Unconditioned...");
         } else {
-            telemetry.addData("Say", "Joystick Conditioned...");
-            left = JoystickConditioning(left, .2f, .2f, .2f);
-            right = JoystickConditioning(right, .2f, .2f, .2f);
+            say("Joystick Conditioned...");
+            left = JoystickConditioning(left, .2f, 0, .2f);
+            right = JoystickConditioning(right, .2f, 0, .2f);
         }
 
         /**
