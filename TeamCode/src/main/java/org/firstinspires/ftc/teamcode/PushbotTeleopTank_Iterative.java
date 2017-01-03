@@ -57,29 +57,30 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
         left = gamepad1.left_stick_y;
         right = gamepad1.right_stick_y;
-        say("Right: " + right);
-        say("Left: " + left);
 
         if(gamepad1.dpad_up) {
-            robot.Drive(1);
+            left = 1;
+            right = 1;
             say("All Forward");
         }
         if(gamepad1.dpad_down){
+            left = -1;
+            right = -1;
             say("All Backward");
-            robot.Drive(-1);
         }
         if(gamepad1.dpad_right){
+            left = 1;
+            right = 0;
             say("All Right");
-            left=1;
         }
         if(gamepad1.dpad_left){
-            say("All Left");
-
             right = 1;
+            left = 0;
+            say("All Left");
         }
 
         /**
-         * TUrn on and off joystick conditioning
+         * Turn on and off joystick conditioning
          */
         if (!gamepad1.right_bumper) {
             telemetry.addData("Say", "Joystick Unconditioned...");
@@ -116,16 +117,13 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         if (gamepad1.a) {
             robot.leftShooter.setPower(1);
             robot.rightShooter.setPower(-1);
-        }
-
-        /**
-         * Turn off fire if the a button is not pressed
-         */
-        if (!gamepad1.a) {
+        } else {
             robot.leftShooter.setPower(0);
             robot.rightShooter.setPower(0);
         }
 
+        say("Right: " + right);
+        say("Left: " + left);
         robot.leftMotor.setPower(left);
         robot.rightMotor.setPower(right);
 
