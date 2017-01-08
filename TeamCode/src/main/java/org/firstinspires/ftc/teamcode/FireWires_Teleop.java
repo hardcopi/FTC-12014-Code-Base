@@ -1,18 +1,24 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.Range;
-
-import org.firstinspires.ftc.teamcode.HardwarePushbot;
 
 @TeleOp(name="FireWires: Teleop Tank", group="Pushbot")
-public class PushbotTeleopTank_Iterative extends OpMode{
+public class FireWires_Teleop extends OpMode {
+    private static final double SHOOTER_WAIT_TIME = 1000;
+    private static final double SHOOTER_SHOOT_STRENGTH = .43;
+    private static final double SHOOTER_REVERSE_STRENGTH = -.2;
+    private static final double SHOOTER_SERVO_UP = -1;
+    private static final double SHOOTER_SERVO_DOWN = 1;
+    private static final double INTAKE_POWER = 1;
+    private static final double INTAKE_POWER_REVERSE = 1;
+    private static final float JOYSTICK_DEADBAND = .2f;
+    private static final float JOYSTICK_OFFSET = 0;
+    private static final float JOYSTICK_GAIN = .2f;
+
 
     /* Declare OpMode members. */
-    org.firstinspires.ftc.teamcode.HardwarePushbot robot = new HardwarePushbot(); // use the class created to define a Pushbot's hardware
+    HardwareFireWiresBot robot = new HardwareFireWiresBot(); // use the class created to define a Pushbot's hardware
                                                          // could also use HardwarePushbotMatrix class.
 
     /*
@@ -54,12 +60,6 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         float right;
         float x;
 
-        if (gamepad2.b) {
-            robot.shootServo.setPosition(-1);
-        } else {
-            robot.shootServo.setPosition(1);
-        }
-
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
         left = gamepad1.left_stick_y;
         right = gamepad1.right_stick_y;
@@ -92,22 +92,22 @@ public class PushbotTeleopTank_Iterative extends OpMode{
             say("Joystick Unconditioned...");
         } else {
             say("Joystick Conditioned...");
-            left = JoystickConditioning(left, .2f, 0, .2f);
-            right = JoystickConditioning(right, .2f, 0, .2f);
+            left = JoystickConditioning(left, JOYSTICK_DEADBAND, JOYSTICK_OFFSET, JOYSTICK_GAIN);
+            right = JoystickConditioning(right, JOYSTICK_DEADBAND, JOYSTICK_OFFSET, JOYSTICK_GAIN);
         }
 
         /**
          * Turn intake on at 100% to fix stuck balls
          */
         if (gamepad2.right_trigger == 1) {
-            robot.intakeMotor.setPower(-1);
+            robot.intakeMotor.setPower(INTAKE_POWER_REVERSE);
         }
 
         /**
-         * Turn intake on at 45% for normal intake
+         * Turn intake on at 100% for normal intake
          */
         if (gamepad2.left_trigger == 1) {
-            robot.intakeMotor.setPower(1);
+            robot.intakeMotor.setPower(INTAKE_POWER);
         }
 
         /**
@@ -121,11 +121,29 @@ public class PushbotTeleopTank_Iterative extends OpMode{
          * Fire
          */
         if (gamepad2.a) {
-            robot.leftShooter.setPower(.3);
-            robot.rightShooter.setPower(.3);
+            long setTime = System.currentTimeMillis();
+            /* Reverse the shooter motors to settle the ball */
+            robot.leftShooter.setPower(SHOOTER_REVERSE_STRENGTH);
+            robot.rightShooter.setPower(SHOOTER_REVERSE_STRENGTH);
+            /* Use the servo to put the ball into place */
+            robot.shootServo.setPosition(-1);
+            /* Wait 1 second for the ball to settle */
+            if (System.currentTimeMillis() - setTime > SHOOTER_WAIT_TIME) {
+                /* Motors to speed */
+                robot.leftShooter.setPower(SHOOTER_SHOOT_STRENGTH);
+                robot.rightShooter.setPower(SHOOTER_SHOOT_STRENGTH);
+                /* FIRE */
+                robot.shootServo.setPosition(SHOOTER_SERVO_UP);
+            }
         } else {
             robot.leftShooter.setPower(0);
             robot.rightShooter.setPower(0);
+        }
+
+        if (gamepad2.b) {
+            robot.shootServo.setPosition(SHOOTER_SERVO_DOWN);
+        } else {
+            robot.shootServo.setPosition(SHOOTER_SERVO_UP);
         }
 
         say("Right: " + right);

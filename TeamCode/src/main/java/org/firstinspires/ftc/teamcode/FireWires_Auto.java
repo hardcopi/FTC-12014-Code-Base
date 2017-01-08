@@ -2,14 +2,12 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous(name="FireWires: Auto Tank", group="Pushbot")
-public class AutonTeleopTank_Iterative extends OpMode{
+public class FireWires_Auto extends OpMode {
 
     /* Declare OpMode members. */
-    HardwarePushbot robot = new HardwarePushbot(); // use the class created to define a Pushbot's hardware
+    HardwareFireWiresBot robot = new HardwareFireWiresBot(); // use the class created to define a Pushbot's hardware
                                                          // could also use HardwarePushbotMatrix class.
     long start_time;
     /*
@@ -23,7 +21,7 @@ public class AutonTeleopTank_Iterative extends OpMode{
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "Systems Initialized...");
+        say("Systems Initialized...");
     }
 
     /*
@@ -52,26 +50,12 @@ public class AutonTeleopTank_Iterative extends OpMode{
         robot.DriveDistance(1,5);
     }
 
-
-
     /*
      * Code to run ONCE after the driver hits STOP
      */
     @Override
     public void stop() {
         robot.Drive(0);
-    }
-
-    public static float JoystickConditioning(float x, float db, float off, float gain) {
-        float output = 0;
-        boolean sign = (x > 0);
-
-        x = Math.abs(x);
-        if (x > db) {
-            output = (float) (off - ((off - 1) * Math.pow(((db - x) / (db - 1)), gain)));
-            output *= sign ? 1 : -1;
-        }
-        return output;
     }
 
     public void print(String command, String string)

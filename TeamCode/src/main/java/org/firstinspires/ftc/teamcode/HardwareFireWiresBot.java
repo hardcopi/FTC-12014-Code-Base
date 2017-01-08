@@ -14,19 +14,19 @@ import java.util.HashMap;
 import java.util.Map;
 /**
  *
- * This class can be used to define all the specific hardware for a single robot.
+ * This class defines all hardware aspects of the robot
  *
- * Motor channel:  Left  drive motor:              "left_drive"
- * Motor channel:  Right drive motor:              "right_drive"
- * Motor channel:  Left  Front drive motor:        "left_front_drive"
- * Motor channel:  Right Frontdrive motor:         "right_front_drive"
  */
-public class HardwarePushbot
+public class HardwareFireWiresBot
 {
     public DcMotor r = null;
+    /* DC Motors */
     public DcMotor intakeMotor, leftShooter, rightShooter, leftMotor, rightMotor = null;
+    public ArrayList<DcMotor> motorArray = new ArrayList<DcMotor>(Arrays.asList(
+            leftMotor, rightMotor, intakeMotor, leftShooter, rightShooter));
+
+    /* Servo Motors */
     public Servo shootServo = null;
-    public ArrayList<DcMotor> motorArray = new ArrayList<DcMotor>(Arrays.asList(leftMotor, rightMotor, intakeMotor, leftShooter, rightShooter));
 
     public Map<DcMotor, String> m = new HashMap<DcMotor, String>();
     public long start_time;
@@ -35,7 +35,7 @@ public class HardwarePushbot
     private ElapsedTime period  = new ElapsedTime();
     public int distance = 0;
     /* Constructor */
-    public HardwarePushbot(){
+    public HardwareFireWiresBot() {
 
     }
 
