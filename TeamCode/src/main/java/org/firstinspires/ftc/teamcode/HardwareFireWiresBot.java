@@ -19,6 +19,11 @@ import java.util.Map;
  */
 public class HardwareFireWiresBot
 {
+    private static final double SHOOTER_WAIT_TIME = 1000;
+    private static final double SHOOTER_SHOOT_STRENGTH = .43;
+    private static final double SHOOTER_REVERSE_STRENGTH = -.2;
+    private static final double SHOOTER_SERVO_UP = 1;
+
     public DcMotor r = null;
     /* DC Motors */
     public DcMotor intakeMotor, leftShooter, rightShooter, leftMotor, rightMotor = null;
@@ -77,10 +82,6 @@ public class HardwareFireWiresBot
             rightShooter = hwMap.dcMotor.get("right_shooter_motor");
             rightShooter.setDirection(DcMotor.Direction.FORWARD);
         }
-
-
-
-
 
         // Set all motors to zero power
         for(DcMotor motorVar: motorArray){
@@ -169,6 +170,57 @@ public class HardwareFireWiresBot
     }
 
     /**
+     * Fire Command
+     */
+    public void fire() {
+        long setTime = System.currentTimeMillis();
+        /* Reverse the shooter motors to settle the ball */
+        leftShooter.setPower(SHOOTER_REVERSE_STRENGTH);
+        rightShooter.setPower(SHOOTER_REVERSE_STRENGTH);
+        /* Use the servo to put the ball into place */
+        shootServo.setPosition(-1);
+        /* Wait 1 second for the ball to settle */
+        if (System.currentTimeMillis() - setTime > SHOOTER_WAIT_TIME) {
+            /* Motors to speed */
+            leftShooter.setPower(SHOOTER_SHOOT_STRENGTH);
+            rightShooter.setPower(SHOOTER_SHOOT_STRENGTH);
+            /* FIRE */
+            shootServo.setPosition(SHOOTER_SERVO_UP);
+        }
+    }
+
+    /**
+     * Stop Firing
+     */
+    public void stop_firing() {
+        leftShooter.setPower(0);
+        rightShooter.setPower(0);
+    }
+
+    /**
+     * Set intake power
+     *
+     * @param power
+     */
+    public void intake(float power) {
+        intakeMotor.setPower(power);
+    }
+
+    /**
+     * Lift Servo
+     *
+     * @param power
+     */
+    public void move_shoot_servo(float power) {
+        shootServo.setPosition(power);
+    }
+
+    public void drive(float left, float right) {
+        leftMotor.setPower(left);
+        rightMotor.setPower(right);
+    }
+
+    /**
      * Drive a certain Distance in inches
      *
      * @param power 	-1 to 1 range of power provided to robot
@@ -193,7 +245,6 @@ public class HardwareFireWiresBot
      */
     public void TurnLeftDistance(double power, int distance) {
 	/* Convert Distance to Revolutions */
-//        distance = ConvertDistance(distance);
 
 	/* Reset Encoders */
         leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -219,6 +270,27 @@ public class HardwareFireWiresBot
         leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+    }
+
+    /**
+     * Condition the joystick
+     *
+     * @param x
+     * @param db   - Deadband
+     * @param off  - Offset
+     * @param gain - Gain
+     * @return
+     */
+    public float joystick_conditioning(float x, float db, float off, float gain) {
+        float output = 0;
+        boolean sign = (x > 0);
+
+        x = Math.abs(x);
+        if (x > db) {
+            output = (float) (off - ((off - 1) * Math.pow(((db - x) / (db - 1)), gain)));
+            output *= sign ? 1 : -1;
+        }
+        return output;
     }
 
     /**

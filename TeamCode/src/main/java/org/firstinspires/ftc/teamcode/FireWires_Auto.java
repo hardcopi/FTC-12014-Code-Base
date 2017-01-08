@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-@Autonomous(name="FireWires: Auto Tank", group="Pushbot")
+@Autonomous(name = "Drive, Push Ball & Park", group = "FireBot")
 public class FireWires_Auto extends OpMode {
 
     /* Declare OpMode members. */
