@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -24,7 +25,9 @@ public class HardwarePushbot
 {
     public DcMotor r = null;
     public DcMotor intakeMotor, leftShooter, rightShooter, leftMotor, rightMotor = null;
+    public Servo shootServo = null;
     public ArrayList<DcMotor> motorArray = new ArrayList<DcMotor>(Arrays.asList(leftMotor, rightMotor, intakeMotor, leftShooter, rightShooter));
+
     public Map<DcMotor, String> m = new HashMap<DcMotor, String>();
     public long start_time;
     /* local OpMode members. */
@@ -43,6 +46,11 @@ public class HardwarePushbot
     public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map
         hwMap = ahwMap;
+
+        // Define and Initialize Servos
+        if (hwMap.servo.get("shoot-servo") != null) {
+            shootServo = hwMap.servo.get("shoot-servo");
+        }
 
         // Define and Initialize Motors
         if(hwMap.dcMotor.get("left_drive") != null){

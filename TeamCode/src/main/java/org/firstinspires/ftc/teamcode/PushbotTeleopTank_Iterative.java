@@ -54,6 +54,12 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         float right;
         float x;
 
+        if (gamepad2.b) {
+            robot.shootServo.setPosition(-1);
+        } else {
+            robot.shootServo.setPosition(1);
+        }
+
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
         left = gamepad1.left_stick_y;
         right = gamepad1.right_stick_y;
@@ -93,30 +99,30 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         /**
          * Turn intake on at 100% to fix stuck balls
          */
-        if (gamepad1.right_trigger == 1) {
+        if (gamepad2.right_trigger == 1) {
             robot.intakeMotor.setPower(-1);
         }
 
         /**
          * Turn intake on at 45% for normal intake
          */
-        if (gamepad1.left_trigger != 1) {
-            robot.intakeMotor.setPower(.45);
+        if (gamepad2.left_trigger == 1) {
+            robot.intakeMotor.setPower(1);
         }
 
         /**
          * Turn intake off if bumpers not pressed
          */
-        if (gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0) {
-            robot.intakeMotor.setPower(0);
+        if (gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0) {
+            robot.intakeMotor.setPower(-1);
         }
 
         /**
          * Fire
          */
-        if (gamepad1.a) {
-            robot.leftShooter.setPower(1);
-            robot.rightShooter.setPower(-1);
+        if (gamepad2.a) {
+            robot.leftShooter.setPower(.3);
+            robot.rightShooter.setPower(.3);
         } else {
             robot.leftShooter.setPower(0);
             robot.rightShooter.setPower(0);
@@ -126,7 +132,6 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         say("Left: " + left);
         robot.leftMotor.setPower(left);
         robot.rightMotor.setPower(right);
-
     }
 
     /*
