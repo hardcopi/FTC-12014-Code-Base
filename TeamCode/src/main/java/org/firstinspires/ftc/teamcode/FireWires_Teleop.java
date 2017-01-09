@@ -60,14 +60,15 @@ public class FireWires_Teleop extends OpMode {
         left = gamepad1.left_stick_y;
         right = gamepad1.right_stick_y;
 
+        /* Use the DPad for absolute control */
         if(gamepad1.dpad_up) {
-            left = 1;
-            right = 1;
+            left = -1;
+            right = -1;
             say("All Forward");
         }
         if(gamepad1.dpad_down){
-            left = -1;
-            right = -1;
+            left = 1;
+            right = 1;
             say("All Backward");
         }
         if(gamepad1.dpad_right){

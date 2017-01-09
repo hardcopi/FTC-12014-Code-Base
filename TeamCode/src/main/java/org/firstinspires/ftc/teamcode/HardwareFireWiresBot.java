@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  *
  * This class defines all hardware aspects of the robot
@@ -39,6 +40,7 @@ public class HardwareFireWiresBot
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
     public int distance = 0;
+
     /* Constructor */
     public HardwareFireWiresBot() {
 
@@ -174,16 +176,11 @@ public class HardwareFireWiresBot
      */
     public void fire() {
         long setTime = System.currentTimeMillis();
-        /* Reverse the shooter motors to settle the ball */
-        leftShooter.setPower(SHOOTER_REVERSE_STRENGTH);
-        rightShooter.setPower(SHOOTER_REVERSE_STRENGTH);
-        /* Use the servo to put the ball into place */
-        shootServo.setPosition(-1);
+        leftShooter.setPower(SHOOTER_SHOOT_STRENGTH);
+        rightShooter.setPower(SHOOTER_SHOOT_STRENGTH);
+
         /* Wait 1 second for the ball to settle */
         if (System.currentTimeMillis() - setTime > SHOOTER_WAIT_TIME) {
-            /* Motors to speed */
-            leftShooter.setPower(SHOOTER_SHOOT_STRENGTH);
-            rightShooter.setPower(SHOOTER_SHOOT_STRENGTH);
             /* FIRE */
             shootServo.setPosition(SHOOTER_SERVO_UP);
         }
