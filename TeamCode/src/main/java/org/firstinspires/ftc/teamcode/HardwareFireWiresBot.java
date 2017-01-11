@@ -206,11 +206,12 @@ public class HardwareFireWiresBot
     /**
      * Lift Servo
      *
-     * @param power
+     * @param distance
      */
     public void move_shoot_servo(float distance) {
         if (distance == 1) {
-            intakeMotor.setPower(-.2);
+            leftShooter.setPower(SHOOTER_REVERSE_STRENGTH);
+            rightShooter.setPower(SHOOTER_REVERSE_STRENGTH);
             shootServo.setPosition(distance);
         } else {
             shootServo.setPosition(distance);
