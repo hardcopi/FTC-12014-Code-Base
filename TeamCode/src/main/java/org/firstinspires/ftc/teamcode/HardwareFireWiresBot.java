@@ -208,8 +208,13 @@ public class HardwareFireWiresBot
      *
      * @param power
      */
-    public void move_shoot_servo(float power) {
-        shootServo.setPosition(power);
+    public void move_shoot_servo(float distance) {
+        if (distance == 1) {
+            intakeMotor.setPower(-.2);
+            shootServo.setPosition(distance);
+        } else {
+            shootServo.setPosition(distance);
+        }
     }
 
     public void drive(float left, float right) {

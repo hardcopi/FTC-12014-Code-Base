@@ -1,10 +1,12 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.HardwareFireWiresBot;
+
 @Autonomous(name = "Drive, Push Ball & Park", group = "FireBot")
-public class FireWires_Auto extends OpMode {
+public class Drive_Push_Ball_Park extends OpMode {
 
     /* Declare OpMode members. */
     HardwareFireWiresBot robot = new HardwareFireWiresBot(); // use the class created to define a Pushbot's hardware
