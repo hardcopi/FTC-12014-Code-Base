@@ -6,12 +6,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 @TeleOp(name = "Teleop", group = "FireBot")
 public class FireWires_Teleop extends OpMode {
     private static final float INTAKE_POWER = 1;
-    private static final float INTAKE_POWER_REVERSE = 1;
+    private static final float INTAKE_POWER_REVERSE = -1;
     private static final float JOYSTICK_DEADBAND = .2f;
     private static final float JOYSTICK_OFFSET = 0;
     private static final float JOYSTICK_GAIN = .2f;
-    private static final float SHOOTER_SERVO_UP = 1;
-    private static final float SHOOTER_SERVO_DOWN = -1;
+    private static final float SHOOTER_SERVO_UP = -1;
+    private static final float SHOOTER_SERVO_DOWN = 1;
 
     /* Declare OpMode members. */
     HardwareFireWiresBot robot = new HardwareFireWiresBot(); // use the class created to define a Pushbot's hardware
@@ -54,11 +54,16 @@ public class FireWires_Teleop extends OpMode {
     public void loop() {
         float left;
         float right;
+        float left2;
+        float right2;
         float x;
 
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
         left = gamepad1.left_stick_y;
         right = gamepad1.right_stick_y;
+        left2 = gamepad2.left_stick_y;
+        right2 = gamepad2.right_stick_y;
+
 
         /* Use the DPad for absolute control */
         if(gamepad1.dpad_up) {
@@ -89,8 +94,12 @@ public class FireWires_Teleop extends OpMode {
             say("Joystick Unconditioned...");
         } else {
             say("Joystick Conditioned...");
-            left = robot.joystick_conditioning(left, JOYSTICK_DEADBAND, JOYSTICK_OFFSET, JOYSTICK_GAIN);
-            right = robot.joystick_conditioning(right, JOYSTICK_DEADBAND, JOYSTICK_OFFSET, JOYSTICK_GAIN);
+//            if (left != 0) {
+//                left = robot.joystick_conditioning(left, JOYSTICK_DEADBAND, JOYSTICK_OFFSET, JOYSTICK_GAIN);
+//            }
+//            if (right != 0) {
+//                right = robot.joystick_conditioning(right, JOYSTICK_DEADBAND, JOYSTICK_OFFSET, JOYSTICK_GAIN);
+//            }
         }
 
         /**
@@ -111,7 +120,7 @@ public class FireWires_Teleop extends OpMode {
          * Turn intake off if bumpers not pressed
          */
         if (gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0) {
-            robot.intake(INTAKE_POWER_REVERSE);
+            robot.intake(0);
         }
 
         /**
@@ -120,17 +129,27 @@ public class FireWires_Teleop extends OpMode {
         if (gamepad2.a) {
             robot.fire();
         } else {
-            robot.stop_firing();
+            say("Stopping Fire");
+            robot.leftShooter.setPower(0);
+            robot.rightShooter.setPower(0);
+//            robot.move_shoot_servo(SHOOTER_SERVO_DOWN);
         }
 
-        if (gamepad2.b) {
+        if (gamepad2.b && !gamepad2.a && left2 == 0) {
             robot.move_shoot_servo(SHOOTER_SERVO_UP);
-        } else {
+        }
+        if (!gamepad2.b && !gamepad2.a && left2 == 0) {
             robot.move_shoot_servo(SHOOTER_SERVO_DOWN);
         }
 
-        say("Right: " + right);
-        say("Left: " + left);
+        if (left2 != 0) {
+            robot.shootServo.setPosition(left2);
+        }
+
+//        say("Right: " + right);
+//        say("Left: " + left);
+//        say("Right 2: " + right2);
+//        say("Left 2: " + left2);
         robot.drive(left, right);
     }
 

@@ -23,7 +23,8 @@ public class HardwareFireWiresBot
     private static final double SHOOTER_WAIT_TIME = 1000;
     private static final double SHOOTER_SHOOT_STRENGTH = .43;
     private static final double SHOOTER_REVERSE_STRENGTH = -.2;
-    private static final double SHOOTER_SERVO_UP = 1;
+    private static final float SHOOTER_SERVO_UP = -1;
+    private static final float SHOOTER_SERVO_DOWN = 1;
 
     public DcMotor r = null;
     /* DC Motors */
@@ -125,7 +126,7 @@ public class HardwareFireWiresBot
      *
      * @param power 	-1 to 1 range of power provided to robot
      */
-    public void Drive(double power) {
+    public void Drive(float power) {
         leftMotor.setPower(power);
         rightMotor.setPower(power);
     }
@@ -192,6 +193,7 @@ public class HardwareFireWiresBot
     public void stop_firing() {
         leftShooter.setPower(0);
         rightShooter.setPower(0);
+        move_shoot_servo(SHOOTER_SERVO_DOWN);
     }
 
     /**
@@ -209,10 +211,15 @@ public class HardwareFireWiresBot
      * @param distance
      */
     public void move_shoot_servo(float distance) {
-        if (distance == 1) {
+        long setTime = System.currentTimeMillis();
+        if (distance == -1) {
             leftShooter.setPower(SHOOTER_REVERSE_STRENGTH);
             rightShooter.setPower(SHOOTER_REVERSE_STRENGTH);
             shootServo.setPosition(distance);
+            if (System.currentTimeMillis() < setTime + 1000) {
+                leftShooter.setPower(0);
+                rightShooter.setPower(0);
+            }
         } else {
             shootServo.setPosition(distance);
         }
@@ -231,9 +238,10 @@ public class HardwareFireWiresBot
      */
     public void DriveDistance(float power, int time) {
         float powerlevel = 0.0f;
+        long setTime = System.currentTimeMillis();
 
         // If we're still with the first 3 seconds after pressing start keep driving forward
-        if (System.currentTimeMillis() < start_time + (time * 1000)) {
+        if (System.currentTimeMillis() < setTime + (time * 1000)) {
             powerlevel = power;
         }
         leftMotor.setPower(powerlevel);
@@ -246,8 +254,8 @@ public class HardwareFireWiresBot
      * @param power 	-1 to 1 range of power provided to robot
      * @param distance 	Distance in inches
      */
-    public void TurnLeftDistance(double power, int distance) {
-	/* Convert Distance to Revolutions */
+    public void TurnLeftDistance(float power, int distance) {
+    /* Convert Distance to Revolutions */
 
 	/* Reset Encoders */
         leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -302,8 +310,8 @@ public class HardwareFireWiresBot
      * @param power 	-1 to 1 range of power provided to robot
      * @param distance 	Distance in inches
      */
-    public void TurnRightDistance(double power, int distance) {
-	/* Convert Distance to Revolutions */
+    public void TurnRightDistance(float power, int distance) {
+    /* Convert Distance to Revolutions */
 //        distance = ConvertDistance(distance);
 
 	/* Reset Encoders */
