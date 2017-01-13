@@ -28,9 +28,9 @@ public class Drive_Shoot_Push_Ball_Park extends LinearOpMode {
         /* Drive the rest of the distance */
         robot.leftMotor.setPower(-.3);
         robot.rightMotor.setPower(-.3);
-        sleep(2000);
-        robot.shootServo.setPosition(1);
         sleep(1000);
         robot.drive(0, 0);
+        robot.shootServo.setPosition(1);
+        sleep(2000);
     }
 }
