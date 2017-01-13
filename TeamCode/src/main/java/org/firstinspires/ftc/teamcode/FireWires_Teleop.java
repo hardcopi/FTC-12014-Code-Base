@@ -88,21 +88,6 @@ public class FireWires_Teleop extends OpMode {
         }
 
         /**
-         * Turn on and off joystick conditioning
-         */
-        if (!gamepad1.right_bumper) {
-            say("Joystick Unconditioned...");
-        } else {
-            say("Joystick Conditioned...");
-//            if (left != 0) {
-//                left = robot.joystick_conditioning(left, JOYSTICK_DEADBAND, JOYSTICK_OFFSET, JOYSTICK_GAIN);
-//            }
-//            if (right != 0) {
-//                right = robot.joystick_conditioning(right, JOYSTICK_DEADBAND, JOYSTICK_OFFSET, JOYSTICK_GAIN);
-//            }
-        }
-
-        /**
          * Turn intake on at 100% to fix stuck balls
          */
         if (gamepad2.right_trigger == 1) {
@@ -146,10 +131,6 @@ public class FireWires_Teleop extends OpMode {
             robot.shootServo.setPosition(left2);
         }
 
-//        say("Right: " + right);
-//        say("Left: " + left);
-//        say("Right 2: " + right2);
-//        say("Left 2: " + left2);
         robot.drive(left, right);
     }
 

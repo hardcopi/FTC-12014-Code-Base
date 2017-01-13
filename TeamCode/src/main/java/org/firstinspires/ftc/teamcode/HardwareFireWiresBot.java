@@ -216,10 +216,6 @@ public class HardwareFireWiresBot
             leftShooter.setPower(SHOOTER_REVERSE_STRENGTH);
             rightShooter.setPower(SHOOTER_REVERSE_STRENGTH);
             shootServo.setPosition(distance);
-            if (System.currentTimeMillis() < setTime + 1000) {
-                leftShooter.setPower(0);
-                rightShooter.setPower(0);
-            }
         } else {
             shootServo.setPosition(distance);
         }
