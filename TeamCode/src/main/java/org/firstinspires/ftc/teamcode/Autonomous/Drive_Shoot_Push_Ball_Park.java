@@ -20,8 +20,8 @@ public class Drive_Shoot_Push_Ball_Park extends LinearOpMode {
         sleep(1500);
         /* Fire! */
         robot.drive(0, 0);
-        robot.leftShooter.setPower(.43);
-        robot.rightShooter.setPower(.43);
+        robot.leftShooter.setPower(.3);
+        robot.rightShooter.setPower(.3);
         sleep(1500);
         robot.shootServo.setPosition(-1);
         sleep(3000);

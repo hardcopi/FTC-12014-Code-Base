@@ -12,13 +12,14 @@ public class FireWires_Teleop extends OpMode {
     private static final float JOYSTICK_GAIN = .2f;
     private static final float SHOOTER_SERVO_UP = -1;
     private static final float SHOOTER_SERVO_DOWN = 1;
+    private static final float DRIVE_SPEED = .6f;
 
     /* Declare OpMode members. */
     HardwareFireWiresBot robot = new HardwareFireWiresBot(); // use the class created to define a Pushbot's hardware
                                                          // could also use HardwarePushbotMatrix class.
 
     /*
-     * Code to run ONCE when the driver hits INIT
+     * Code to run ONCE when the driver hits INITF
      */
     @Override
     public void init() {
@@ -67,22 +68,22 @@ public class FireWires_Teleop extends OpMode {
 
         /* Use the DPad for absolute control */
         if(gamepad1.dpad_up) {
-            left = -1;
-            right = -1;
+            left = -DRIVE_SPEED;
+            right = -DRIVE_SPEED;
             say("All Forward");
         }
         if(gamepad1.dpad_down){
-            left = 1;
-            right = 1;
+            left = DRIVE_SPEED;
+            right = DRIVE_SPEED;
             say("All Backward");
         }
         if(gamepad1.dpad_right){
-            left = 1;
+            left = DRIVE_SPEED;
             right = 0;
             say("All Right");
         }
         if(gamepad1.dpad_left){
-            right = 1;
+            right = DRIVE_SPEED;
             left = 0;
             say("All Left");
         }
@@ -129,6 +130,12 @@ public class FireWires_Teleop extends OpMode {
 
         if (left2 != 0) {
             robot.shootServo.setPosition(left2);
+        }
+
+        /* if left trigger not pressed run at 60% */
+        if (gamepad1.left_trigger != 1) {
+            left = left * .6f;
+            right = right * .6f;
         }
 
         robot.drive(left, right);

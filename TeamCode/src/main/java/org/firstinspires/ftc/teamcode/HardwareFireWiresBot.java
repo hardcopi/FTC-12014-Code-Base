@@ -21,7 +21,7 @@ import java.util.Map;
 public class HardwareFireWiresBot
 {
     private static final double SHOOTER_WAIT_TIME = 1000;
-    private static final double SHOOTER_SHOOT_STRENGTH = .43;
+    private static final double SHOOTER_SHOOT_STRENGTH = .3;
     private static final double SHOOTER_REVERSE_STRENGTH = -.2;
     private static final float SHOOTER_SERVO_UP = -1;
     private static final float SHOOTER_SERVO_DOWN = 1;

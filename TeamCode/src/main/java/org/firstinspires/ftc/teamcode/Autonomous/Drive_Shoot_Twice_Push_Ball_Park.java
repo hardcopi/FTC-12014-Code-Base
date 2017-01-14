@@ -21,22 +21,30 @@ public class Drive_Shoot_Twice_Push_Ball_Park extends LinearOpMode {
         sleep(1500);
         /* Fire! */
         robot.drive(0, 0);
-        robot.leftShooter.setPower(.43);
-        robot.rightShooter.setPower(.43);
+        robot.leftShooter.setPower(.3);
+        robot.rightShooter.setPower(.3);
         sleep(1500);
-        /* After Firing Reset the shooter for ball 2 */
         robot.shootServo.setPosition(-1);
-        sleep(1000);
+        sleep(3000);
+
+        /* Let's get greedy and try another shot */
+        /* Reset the servo */
         robot.shootServo.setPosition(1);
+        /* Wait 1 second */
         sleep(1000);
+        /* Put the ball in place to fire again */
+        /* Reverse the shooter motors to settle the ball */
         robot.shootServo.setPosition(-1);
+        robot.leftShooter.setPower(-.2);
+        robot.rightShooter.setPower(-.2);
         sleep(2000);
-        robot.leftShooter.setPower(.43);
-        robot.rightShooter.setPower(.43);
-        sleep(1000);
-        robot.shootServo.setPosition(1);
-        /* After 2nd shot then wait 2 seconds then drive the rest of the way and reset the servo */
-        sleep(2000);
+        /* Fire! */
+        robot.leftShooter.setPower(.3);
+        robot.rightShooter.setPower(.3);
+        sleep(1500);
+        robot.shootServo.setPosition(-1);
+        sleep(3000);
+
         /* Drive the rest of the distance */
         robot.leftMotor.setPower(-.3);
         robot.rightMotor.setPower(-.3);

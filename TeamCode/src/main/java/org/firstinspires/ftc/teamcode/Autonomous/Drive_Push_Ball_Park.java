@@ -1,71 +1,23 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareFireWiresBot;
 
 @Autonomous(name = "Drive, Push Ball & Park", group = "FireBot")
-public class Drive_Push_Ball_Park extends OpMode {
-
-    /* Declare OpMode members. */
-    HardwareFireWiresBot robot = new HardwareFireWiresBot(); // use the class created to define a Pushbot's hardware
-                                                         // could also use HardwarePushbotMatrix class.
+public class Drive_Push_Ball_Park extends LinearOpMode {
+    HardwareFireWiresBot robot = new HardwareFireWiresBot();
     long start_time;
-    /*
-     * Code to run ONCE when the driver hits INIT
-     */
+
     @Override
-    public void init() {
-        /* Initialize the hardware variables.
-         * The init() method of the hardware class does all the work here
-         */
+    public void runOpMode() {
         robot.init(hardwareMap);
-
-        // Send telemetry message to signify robot waiting;
-        say("Systems Initialized...");
-    }
-
-    /*
-     * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
-     */
-    @Override
-    public void init_loop() {
-
-    }
-
-    /*
-     * Code to run ONCE when the driver hits PLAY
-     */
-    @Override
-    public void start() {
-        //int dist = (int) robot.ConvertDistance( 1);
-        say("Distance " + robot.distance);
-        robot.setStart();
-    }
-
-    /*
-     * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
-     */
-    @Override
-    public void loop(){
-        robot.DriveDistance(1,5);
-    }
-
-    /*
-     * Code to run ONCE after the driver hits STOP
-     */
-    @Override
-    public void stop() {
-        robot.Drive(0);
-    }
-
-    public void print(String command, String string)
-    {
-        telemetry.addData(command, string);
-    }
-    private void say(String string)
-    {
-        telemetry.addData("Say", string);
+        robot.shootServo.setPosition(1);
+        /* Drive and push the ball */
+        robot.leftMotor.setPower(-.3);
+        robot.rightMotor.setPower(-.3);
+        sleep(3500);
     }
 }
