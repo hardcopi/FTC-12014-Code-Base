@@ -57,7 +57,6 @@ public class FireWires_Teleop extends OpMode {
         float right;
         float left2;
         float right2;
-        float x;
 
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
         left = gamepad1.left_stick_y;
@@ -78,13 +77,13 @@ public class FireWires_Teleop extends OpMode {
             say("All Backward");
         }
         if(gamepad1.dpad_right){
-            left = DRIVE_SPEED;
-            right = 0;
+            right = DRIVE_SPEED;
+            left = 0;
             say("All Right");
         }
         if(gamepad1.dpad_left){
-            right = DRIVE_SPEED;
-            left = 0;
+            left = DRIVE_SPEED;
+            right = 0;
             say("All Left");
         }
 
@@ -128,12 +127,25 @@ public class FireWires_Teleop extends OpMode {
             robot.move_shoot_servo(SHOOTER_SERVO_DOWN);
         }
 
+        if (right2 != 0) {
+            robot.liftServo.setPosition(right2);
+            say("Right2: " + right2);
+        } else {
+            robot.liftServo.setPosition(1);
+        }
+
         if (left2 != 0) {
             robot.shootServo.setPosition(left2);
         }
 
         /* if left trigger not pressed run at 60% */
-        if (gamepad1.left_trigger != 1) {
+        if (gamepad1.left_trigger == 1) {
+            left = left * .3f;
+            right = right * .3f;
+        }
+
+        /* if left trigger not pressed run at 60% */
+        if (gamepad1.right_trigger != 1) {
             left = left * .6f;
             right = right * .6f;
         }

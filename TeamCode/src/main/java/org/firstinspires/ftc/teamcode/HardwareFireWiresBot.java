@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ *,]]
  *
  * This class defines all hardware aspects of the robot
  *
@@ -21,7 +22,7 @@ import java.util.Map;
 public class HardwareFireWiresBot
 {
     private static final double SHOOTER_WAIT_TIME = 1000;
-    private static final double SHOOTER_SHOOT_STRENGTH = .3;
+    private static final double SHOOTER_SHOOT_STRENGTH = .32;
     private static final double SHOOTER_REVERSE_STRENGTH = -.2;
     private static final float SHOOTER_SERVO_UP = -1;
     private static final float SHOOTER_SERVO_DOWN = 1;
@@ -34,6 +35,7 @@ public class HardwareFireWiresBot
 
     /* Servo Motors */
     public Servo shootServo = null;
+    public Servo liftServo = null;
 
     public Map<DcMotor, String> m = new HashMap<DcMotor, String>();
     public long start_time;
@@ -58,6 +60,11 @@ public class HardwareFireWiresBot
         // Define and Initialize Servos
         if (hwMap.servo.get("shoot-servo") != null) {
             shootServo = hwMap.servo.get("shoot-servo");
+        }
+
+        // Define and Initialize Servos
+        if (hwMap.servo.get("lift-servo") != null) {
+            liftServo = hwMap.servo.get("lift-servo");
         }
 
         // Define and Initialize Motors
@@ -224,24 +231,6 @@ public class HardwareFireWiresBot
     public void drive(float left, float right) {
         leftMotor.setPower(left);
         rightMotor.setPower(right);
-    }
-
-    /**
-     * Drive a certain Distance in inches
-     *
-     * @param power 	-1 to 1 range of power provided to robot
-     * @param time 	time in seconds
-     */
-    public void DriveDistance(float power, int time) {
-        float powerlevel = 0.0f;
-        long setTime = System.currentTimeMillis();
-
-        // If we're still with the first 3 seconds after pressing start keep driving forward
-        if (System.currentTimeMillis() < setTime + (time * 1000)) {
-            powerlevel = power;
-        }
-        leftMotor.setPower(powerlevel);
-        rightMotor.setPower(powerlevel);
     }
 
     /**
