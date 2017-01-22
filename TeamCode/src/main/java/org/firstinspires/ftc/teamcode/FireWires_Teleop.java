@@ -111,8 +111,20 @@ public class FireWires_Teleop extends OpMode {
         /**
          * Fire
          */
-        if (gamepad2.a) {
-            robot.fire();
+        if (gamepad2.a || gamepad2.x) {
+            if (gamepad2.a) {
+                robot.fire();
+            } else {
+                long setTime = System.currentTimeMillis();
+                robot.leftShooter.setPower(1);
+                robot.rightShooter.setPower(1);
+
+                /* Wait 1 second for the ball to settle */
+                if (System.currentTimeMillis() - setTime > 1000) {
+                    /* FIRE */
+                    robot.shootServo.setPosition(SHOOTER_SERVO_UP);
+                }
+            }
         } else {
             say("Stopping Fire");
             robot.leftShooter.setPower(0);
