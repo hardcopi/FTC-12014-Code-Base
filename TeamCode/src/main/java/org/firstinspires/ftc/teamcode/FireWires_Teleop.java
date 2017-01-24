@@ -163,6 +163,18 @@ public class FireWires_Teleop extends OpMode {
         }
 
         robot.drive(left, right);
+
+        telemetry.addData("Raw", robot.ods.getRawLightDetected());
+        telemetry.addData("Normal", robot.ods.getLightDetected());
+
+        robot.color.enableLed(true);
+
+        telemetry.addData("Clear", robot.color.alpha());
+        telemetry.addData("Red  ", robot.color.red());
+        telemetry.addData("Green", robot.color.green());
+        telemetry.addData("Blue ", robot.color.blue());
+
+        telemetry.update();
     }
 
     /*

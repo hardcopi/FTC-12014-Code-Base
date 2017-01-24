@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -22,7 +24,7 @@ import java.util.Map;
 public class HardwareFireWiresBot
 {
     private static final double SHOOTER_WAIT_TIME = 1000;
-    private static final double SHOOTER_SHOOT_STRENGTH = .32;
+    private static final double SHOOTER_SHOOT_STRENGTH = .34;
     private static final double SHOOTER_REVERSE_STRENGTH = -.2;
     private static final float SHOOTER_SERVO_UP = -1;
     private static final float SHOOTER_SERVO_DOWN = 1;
@@ -36,6 +38,10 @@ public class HardwareFireWiresBot
     /* Servo Motors */
     public Servo shootServo = null;
     public Servo liftServo = null;
+
+    /* Sensor Time */
+    public OpticalDistanceSensor ods;
+    public ColorSensor color;
 
     public Map<DcMotor, String> m = new HashMap<DcMotor, String>();
     public long start_time;
@@ -57,12 +63,19 @@ public class HardwareFireWiresBot
         // Save reference to Hardware map
         hwMap = ahwMap;
 
+        // Define and Initialize Sensors
+        if (hwMap.opticalDistanceSensor.get("ods") != null) {
+            ods = hwMap.opticalDistanceSensor.get("ods");
+        }
+        if (hwMap.colorSensor.get("color") != null) {
+            color = hwMap.colorSensor.get("color");
+        }
+
         // Define and Initialize Servos
         if (hwMap.servo.get("shoot-servo") != null) {
             shootServo = hwMap.servo.get("shoot-servo");
         }
 
-        // Define and Initialize Servos
         if (hwMap.servo.get("lift-servo") != null) {
             liftServo = hwMap.servo.get("lift-servo");
         }
