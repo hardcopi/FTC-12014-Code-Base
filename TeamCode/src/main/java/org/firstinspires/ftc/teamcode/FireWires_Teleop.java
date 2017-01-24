@@ -162,6 +162,15 @@ public class FireWires_Teleop extends OpMode {
             right = right * .6f;
         }
 
+        /**
+         * Add the joystick conditioning
+         * This should allow the driver to have better fine control over the robot
+         * and make the robot generally less twitchy. It also keeps the motors from
+         * being over taxed...
+         */
+        left  = robot.joystick_conditioning(left, JOYSTICK_DEADBAND, JOYSTICK_OFFSET, JOYSTICK_GAIN);
+        right = robot.joystick_conditioning(right, JOYSTICK_DEADBAND, JOYSTICK_OFFSET, JOYSTICK_GAIN);
+
         robot.drive(left, right);
     }
 

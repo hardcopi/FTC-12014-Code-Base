@@ -16,53 +16,35 @@ public class Drive_Shoot_Twice_Push_Ball_Park extends LinearOpMode {
     @Override
     public void runOpMode() {
         robot.init(hardwareMap);
+        waitForStart();
         robot.shootServo.setPosition(1);
         /* Drive a little over 1/2 way there */
         robot.leftMotor.setPower(-.3);
         robot.rightMotor.setPower(-.3);
         sleep(1500);
+
         /* Fire! */
         robot.drive(0, 0);
         robot.leftShooter.setPower(.3);
         robot.rightShooter.setPower(.3);
-        sleep(1500);
+        sleep(1000);
         robot.shootServo.setPosition(-1);
-        sleep(1500);
-        robot.leftShooter.setPower(0);
-        robot.rightShooter.setPower(0);
-        sleep(1000);
-        robot.shootServo.setPosition(1);
-        sleep(2000);
-        robot.liftServo.setPosition(1);
-        sleep(1000);
 
-        /* Let's get greedy and try another shot */
-        /* Reset the servo */
-        robot.shootServo.setPosition(1);
-        /* Wait 1 second */
-        sleep(1000);
-        robot.liftServo.setPosition(1);
-        sleep(1000);
-        /* Put the ball in place to fire again */
-        /* Reverse the shooter motors to settle the ball */
-        robot.shootServo.setPosition(-1);
-        robot.leftShooter.setPower(-.2);
-        robot.rightShooter.setPower(-.2);
-        sleep(1000);
-        robot.shootServo.setPosition(1);
-        sleep(1000);
-        /* Fire! */
+        /* Fire again! */
+        robot.drive(0, 0);
         robot.leftShooter.setPower(.3);
         robot.rightShooter.setPower(.3);
-        sleep(1500);
+        sleep(1000);
         robot.shootServo.setPosition(-1);
-        sleep(3000);
+        sleep(1000);
 
         /* Drive the rest of the distance */
         robot.leftMotor.setPower(-.3);
         robot.rightMotor.setPower(-.3);
         sleep(1000);
         robot.drive(0, 0);
+
+        /* Reset the servo for the match */
         robot.shootServo.setPosition(1);
         sleep(2000);
     }

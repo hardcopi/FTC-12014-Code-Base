@@ -22,7 +22,7 @@ import java.util.Map;
 public class HardwareFireWiresBot
 {
     private static final double SHOOTER_WAIT_TIME = 1000;
-    private static final double SHOOTER_SHOOT_STRENGTH = .32;
+    private static final double SHOOTER_SHOOT_STRENGTH = .60;
     private static final double SHOOTER_REVERSE_STRENGTH = -.2;
     private static final float SHOOTER_SERVO_UP = -1;
     private static final float SHOOTER_SERVO_DOWN = 1;
@@ -186,12 +186,6 @@ public class HardwareFireWiresBot
         long setTime = System.currentTimeMillis();
         leftShooter.setPower(SHOOTER_SHOOT_STRENGTH);
         rightShooter.setPower(SHOOTER_SHOOT_STRENGTH);
-
-        /* Wait 1 second for the ball to settle */
-        if (System.currentTimeMillis() - setTime > SHOOTER_WAIT_TIME) {
-            /* FIRE */
-            shootServo.setPosition(SHOOTER_SERVO_UP);
-        }
     }
 
     /**
@@ -200,7 +194,6 @@ public class HardwareFireWiresBot
     public void stop_firing() {
         leftShooter.setPower(0);
         rightShooter.setPower(0);
-        move_shoot_servo(SHOOTER_SERVO_DOWN);
     }
 
     /**
