@@ -172,6 +172,18 @@ public class FireWires_Teleop extends OpMode {
         right = robot.joystick_conditioning(right, JOYSTICK_DEADBAND, JOYSTICK_OFFSET, JOYSTICK_GAIN);
 
         robot.drive(left, right);
+
+        telemetry.addData("Raw", robot.ods.getRawLightDetected());
+        telemetry.addData("Normal", robot.ods.getLightDetected());
+
+        robot.color.enableLed(true);
+
+        telemetry.addData("Clear", robot.color.alpha());
+        telemetry.addData("Red  ", robot.color.red());
+        telemetry.addData("Green", robot.color.green());
+        telemetry.addData("Blue ", robot.color.blue());
+
+        telemetry.update();
     }
 
     /*
