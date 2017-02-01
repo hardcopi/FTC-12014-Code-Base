@@ -16,7 +16,7 @@ public class FireWires_Teleop extends OpMode {
 
     /* Declare OpMode members. *///
     /**
-     * To test a push
+     * To test a push for the final time
      *
      */
     HardwareFireWiresBot robot = new HardwareFireWiresBot(); // use the class created to define a Pushbot's hardware
