@@ -108,6 +108,18 @@ public class FireWires_Teleop extends OpMode {
             robot.intake(0);
         }
 
+        if (!gamepad1.x & gamepad1.b) {
+            robot.pusherServo.setPosition(.3);
+        }
+
+        if (gamepad1.x & !gamepad1.b) {
+            robot.pusherServo.setPosition(.7);
+        }
+
+        if (!gamepad1.x & !gamepad1.b) {
+            robot.pusherServo.setPosition(.5);
+        }
+
         /**
          * Fire
          */
@@ -116,8 +128,7 @@ public class FireWires_Teleop extends OpMode {
                 robot.fire();
             } else {
                 long setTime = System.currentTimeMillis();
-                robot.leftShooter.setPower(1);
-                robot.rightShooter.setPower(1);
+                robot.fireFarther();
 
                 /* Wait 1 second for the ball to settle */
                 if (System.currentTimeMillis() - setTime > 1000) {

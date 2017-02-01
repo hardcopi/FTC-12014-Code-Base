@@ -38,6 +38,7 @@ public class HardwareFireWiresBot
     /* Servo Motors */
     public Servo shootServo = null;
     public Servo liftServo = null;
+    public Servo pusherServo = null;
 
     /* Sensor Time */
     public OpticalDistanceSensor ods;
@@ -78,6 +79,10 @@ public class HardwareFireWiresBot
 
         if (hwMap.servo.get("lift-servo") != null) {
             liftServo = hwMap.servo.get("lift-servo");
+        }
+
+        if (hwMap.servo.get("pusher-servo") != null) {
+            pusherServo = hwMap.servo.get("pusher-servo");
         }
 
         // Define and Initialize Motors
@@ -201,6 +206,11 @@ public class HardwareFireWiresBot
         rightShooter.setPower(SHOOTER_SHOOT_STRENGTH);
     }
 
+    public void fireFarther() {
+        long setTime = System.currentTimeMillis();
+        leftShooter.setPower(SHOOTER_SHOOT_STRENGTH + .25);
+        rightShooter.setPower(SHOOTER_SHOOT_STRENGTH);
+    }
     /**
      * Stop Firing
      */
