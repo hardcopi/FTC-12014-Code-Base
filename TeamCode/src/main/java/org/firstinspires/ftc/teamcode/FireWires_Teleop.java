@@ -15,6 +15,9 @@ public class FireWires_Teleop extends OpMode {
     private static final float DRIVE_SPEED = .6f;
 
     /* Declare OpMode members. *///
+    /**
+     * To test a push
+     */
     HardwareFireWiresBot robot = new HardwareFireWiresBot(); // use the class created to define a Pushbot's hardware
                                                          // could also use HardwarePushbotMatrix class.
 
