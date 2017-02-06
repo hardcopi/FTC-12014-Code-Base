@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareFireWiresBot;
 
+@Disabled
 @Autonomous(name = "Beacon Pusher", group = "FireBot")
 public class Beacon_Pusher extends LinearOpMode  {
     HardwareFireWiresBot robot = new HardwareFireWiresBot();
