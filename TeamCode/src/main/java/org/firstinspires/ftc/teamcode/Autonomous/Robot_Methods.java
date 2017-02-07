@@ -36,7 +36,7 @@ public class Robot_Methods {
         robot.rightShooter.setPower(shooterPower);
         Robot_Methods.waitSeconds(2);
         robot.shootServo.setPosition(-1);
-        Robot_Methods.waitSeconds(500);
+        Robot_Methods.waitSeconds(.5);
         //Ball is shot
         robot.shootServo.setPosition(1);
         robot.leftShooter.setPower(0);
