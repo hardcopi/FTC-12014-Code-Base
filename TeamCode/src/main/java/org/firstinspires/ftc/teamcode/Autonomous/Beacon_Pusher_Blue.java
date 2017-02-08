@@ -4,9 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareFireWiresBot;
+import org.firstinspires.ftc.teamcode.R;
 
-@Autonomous(name = "Beacon Pusher", group = "FireBot")
-public class Beacon_Pusher extends LinearOpMode  {
+@Autonomous(name = "Beacon Pusher Blue", group = "FireBot")
+public class Beacon_Pusher_Blue extends LinearOpMode  {
     HardwareFireWiresBot robot = new HardwareFireWiresBot();
     long start_time;
 
@@ -43,7 +44,9 @@ public class Beacon_Pusher extends LinearOpMode  {
             telemetry.addData("Light Level",  robot.ods.getLightDetected());
             telemetry.update();
         }
-
+        boolean drive = true;
+        robot.leftMotor.setPower(.3);
+        robot.rightMotor.setPower(.3);
         while (opModeIsActive()) {
             // send the info back to driver station using telemetry function.
             // Write the reflectance detected to a variable
@@ -51,18 +54,26 @@ public class Beacon_Pusher extends LinearOpMode  {
 
             // If the sensor is on the line
             // only the right motor rotates to move it off the line
-            if (reflectance >= THRESHOLD_REFLECTANCE) {
-                robot.rightMotor.setPower(RUN_POWER);
+            if(reflectance > THRESHOLD_REFLECTANCE && drive ==true){
+                sleep(200);
                 robot.leftMotor.setPower(0);
-            }
-            // Otherwise (if the sensor is off the line)
-            // only the left motor rotates to move it back toward the line
-            else {
-                robot.leftMotor.setPower(RUN_POWER);
                 robot.rightMotor.setPower(0);
-                telemetry.addData("Reflectance", "%7f4", reflectance);
-                telemetry.update();
+                drive = false;
+
             }
+            if(!drive){
+                //code to execute after finding the line
+                robot.leftMotor.setPower(.3);
+                robot.rightMotor.setPower(0);
+                sleep(1000);
+                robot.leftMotor.setPower(.3);
+                robot.rightMotor.setPower(.3);
+                sleep(1000);
+                robot.leftMotor.setPower(0);
+                robot.rightMotor.setPower(0);
+
+            }
+
         }
 
         // Stop all motors
