@@ -30,6 +30,18 @@ public class Robot_Methods {
         robot.drive(0, 0);
     }
 
+    /**
+     * @param robot   The robot to act on
+     * @param power   The power for both motors
+     * @param seconds The number of seconds to drive
+     */
+    public static void turnForSecondsAtPower(HardwareFireWiresBot robot, double right, double left, double seconds) {
+        robot.drive(right, left);
+        waitSeconds(seconds);
+        robot.drive(0, 0);
+    }
+
+
     public static void shootOneBall(HardwareFireWiresBot robot, double shooterPower) {
         /* Fire! */
         robot.leftShooter.setPower(shooterPower);

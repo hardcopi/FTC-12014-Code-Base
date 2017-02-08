@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
         import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+        import com.qualcomm.robotcore.eventloop.opmode.Disabled;
         import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
         import org.firstinspires.ftc.teamcode.HardwareFireWiresBot;
 
+@Disabled
 @Autonomous(name = "Drive, Shoot, Push Ball & Park", group = "FireBot")
 public class Drive_Shoot_Push_Ball_Park extends LinearOpMode {
     static final Robot_Methods amethods = new Robot_Methods();
