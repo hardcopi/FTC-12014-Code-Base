@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.internal.TelemetryImpl;
+import org.firstinspires.ftc.teamcode.Autonomous.Robot_Methods;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -244,11 +245,23 @@ public class HardwareFireWiresBot
         }
     }
 
-    public void drive(float left, float right) {
-        leftMotor.setPower(left);
-        rightMotor.setPower(right);
+    public void drive(double left, double right) {
+        leftMotor.setPower((float) left);
+        rightMotor.setPower((float)right);
     }
+    public void turn90(String direction){
+        if(direction.equalsIgnoreCase("left")){
+            leftMotor.setPower(0);
+            rightMotor.setPower(-1);
+            Robot_Methods.waitSeconds(.5);
 
+        }
+        else{
+            leftMotor.setPower(-1);
+            rightMotor.setPower(0);
+            Robot_Methods.waitSeconds(.5);
+        }
+    }
     /**
      * Turn a certain Distance in inches
      *
