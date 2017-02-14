@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.HardwareFireWiresBot;
 @Autonomous(name = "Drive, Shoot Twice, Push Ball & Park Red", group = "FireBot")
 public class Red_Drive_Shoot_Twice_Push_Ball_Park extends LinearOpMode {
     HardwareFireWiresBot robot = new HardwareFireWiresBot();
-    static final double  SHOOTER_POWER = .25;
+    static final double SHOOTER_POWER = .25;
     long start_time;
 
     @Override

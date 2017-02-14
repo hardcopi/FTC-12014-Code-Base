@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.HardwareFireWiresBot;
 @Autonomous(name = "Drive, Shoot Twice, Push Ball & Park", group = "FireBot")
 public class Drive_Shoot_Twice_Push_Ball_Park extends LinearOpMode {
     HardwareFireWiresBot robot = new HardwareFireWiresBot();
-    static final double  SHOOTER_POWER = .25;
+    static final double SHOOTER_POWER = .25;
     long start_time;
 
     @Override
@@ -42,7 +42,7 @@ public class Drive_Shoot_Twice_Push_Ball_Park extends LinearOpMode {
         sleep(1000);
         robot.shootServo.setPosition(-1);
         sleep(1000);
-        Robot_Methods.driveForSecondsAtPower(robot,-.3,1.5);
+        Robot_Methods.driveForSecondsAtPower(robot, -.3, 1.5);
 
 //        Robot_Methods.driveForSecondsAtPower(robot,-.25,1.5);
 //        Robot_Methods.shootOneBall(robot,SHOOTER_POWER);

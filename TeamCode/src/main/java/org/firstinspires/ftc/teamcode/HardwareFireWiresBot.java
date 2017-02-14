@@ -247,16 +247,16 @@ public class HardwareFireWiresBot
 
     public void drive(double left, double right) {
         leftMotor.setPower((float) left);
-        rightMotor.setPower((float)right);
+        rightMotor.setPower((float) right);
     }
-    public void turn90(String direction){
-        if(direction.equalsIgnoreCase("left")){
+
+    public void turn90(String direction) {
+        if (direction.equalsIgnoreCase("left")) {
             leftMotor.setPower(0);
             rightMotor.setPower(-1);
             Robot_Methods.waitSeconds(.5);
 
-        }
-        else{
+        } else {
             leftMotor.setPower(-1);
             rightMotor.setPower(0);
             Robot_Methods.waitSeconds(.5);

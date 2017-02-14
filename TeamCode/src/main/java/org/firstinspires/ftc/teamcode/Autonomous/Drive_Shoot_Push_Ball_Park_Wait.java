@@ -18,14 +18,14 @@ public class Drive_Shoot_Push_Ball_Park_Wait extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
 
-        robot.drive(-.3,-.3);
+        robot.drive(-.3, -.3);
         Robot_Methods.waitSeconds(.5);
-        robot.drive(0,0);
+        robot.drive(0, 0);
 
         Robot_Methods.waitSeconds(7);
         robot.shootServo.setPosition(1);
         /* Drive a little over 1/2 way there */
-        robot.drive(-.3,-.3);
+        robot.drive(-.3, -.3);
         Robot_Methods.waitSeconds(1);
         /* Fire! */
         robot.drive(0, 0);
@@ -35,7 +35,7 @@ public class Drive_Shoot_Push_Ball_Park_Wait extends LinearOpMode {
         robot.shootServo.setPosition(-1);
         Robot_Methods.waitSeconds(3);
         /* Drive the rest of the distance */
-        robot.drive(-.3,-.3);
+        robot.drive(-.3, -.3);
         Robot_Methods.waitSeconds(1);
         robot.drive(0, 0);
         robot.shootServo.setPosition(1);
